@@ -1,6 +1,16 @@
+/**
+ * LeetCode 2. Add Two Numbers
+ * Add two numbers represented by linked lists (digits stored in reverse order)
+ * and return the sum as a linked list.
+ */
 public class addTwoNumbers {
+    /**
+     * Time Complexity: O(max(N, M)) where N and M are the number of nodes in l1 and
+     * l2.
+     * Space Complexity: O(max(N, M)) for the new resulting linked list.
+     */
     public ListNode addTwonumbers(ListNode l1, ListNode l2) {
-        // Initializing a dummy head node
+        // Initializing a dummy head node to simplify the result list creation
         ListNode dummyhead = new ListNode(0);
         // Initializing a tail node
         ListNode tail = dummyhead;
@@ -14,7 +24,6 @@ public class addTwoNumbers {
             if (l1 != null) {
                 sum += l1.val;
                 l1 = l1.next;
-                ;
             }
             // If l2 is not null, add the value of l2 to sum and move l2 to the next node
             if (l2 != null) {
@@ -35,31 +44,6 @@ public class addTwoNumbers {
             tail.next = new ListNode(carry);
         }
         // Return the next node of the dummy head node
-        return dummyhead.next;
-    }
-
-    public ListNode addTwoNumber(ListNode l1, ListNode l2) {
-        ListNode dummyhead = new ListNode(0);
-        ListNode tail = dummyhead;
-        int carry = 0;
-
-        while (l1 != null || l2 != null) {
-            int sum = carry;
-            if (l1 != null) {
-                sum += l1.val;
-                l1 = l1.next;
-            }
-            if (l2 != null) {
-                sum += l2.val;
-                l2 = l2.next;
-            }
-            tail.next = new ListNode(sum % 10);
-            tail = tail.next;
-            carry = sum / 10;
-        }
-        if(carry > 0){
-            tail.next = new ListNode(carry);
-        }
         return dummyhead.next;
     }
 }
