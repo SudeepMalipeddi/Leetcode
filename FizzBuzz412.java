@@ -1,20 +1,17 @@
 import java.util.List;
 import java.util.ArrayList;
 
-public class fizzBuzz412 {
-    public List<String> fizzBuzz(int n){
+public class FizzBuzz412 {
+    public List<String> fizzBuzz(int n) {
         List<String> res = new ArrayList<>();
-        for(int i = 1; i <=n;i++){
-            if(i%15==0){
+        for (int i = 1; i <= n; i++) {
+            if (i % 15 == 0) {
                 res.add("FizzBuzz");
-            }
-            else if(i%3==0){
+            } else if (i % 3 == 0) {
                 res.add("Fizz");
-            }
-            else if(i%5==0){
+            } else if (i % 5 == 0) {
                 res.add("Buzz");
-            }
-            else{
+            } else {
                 res.add(String.valueOf(i));
             }
         }

@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class inOrder {
+public class InOrder {
     public void traversal(TreeNode root, List<Integer> res) {
         if (root == null) {
             return;

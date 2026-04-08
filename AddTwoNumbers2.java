@@ -3,7 +3,7 @@
  * Add two numbers represented by linked lists (digits stored in reverse order)
  * and return the sum as a linked list.
  */
-public class addTwoNumbers {
+public class AddTwoNumbers2 {
     /**
      * Time Complexity: O(max(N, M)) where N and M are the number of nodes in l1 and
      * l2.

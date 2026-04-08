@@ -1,4 +1,4 @@
-public class inOrderSuccessor {
+public class InOrderSuccessor {
     // Naive solution
     public TreeNode inorderSuccesor(TreeNode root, TreeNode p) {
         TreeNode succ = null;

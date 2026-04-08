@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class postOrder {
+public class PostOrder {
     public void traversal(TreeNode root, List<Integer> res) {
         if (root == null)
             return;

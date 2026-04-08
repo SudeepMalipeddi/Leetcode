@@ -2,7 +2,7 @@
  * LeetCode 67. Add Binary
  * Given two binary strings a and b, return their sum as a binary string.
  */
-public class addBinary67 {
+public class AddBinary67 {
     /**
      * Time Complexity: O(max(N, M)) where N and M are lengths of strings a and b.
      * Space Complexity: O(max(N, M)) for the StringBuilder.

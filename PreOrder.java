@@ -21,7 +21,7 @@ class TreeNode {
     }
 }
 
-public class preOrder {
+public class PreOrder {
     public void traversal(TreeNode root, List<Integer> res) {
         // checking if root node is null
         if (root == null)

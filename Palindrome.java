@@ -1,15 +1,15 @@
-public class palindrome {
+public class Palindrome {
     public boolean isPalindrome(int x) {
-        if(x < 0){
+        if (x < 0) {
             return false;
         }
         long var = x;
         long temp = 0;
-        long reverse=0;
-        while(x>0){
-            temp = x%10;
-            reverse = ((reverse*10) + temp);
-            x = x/10;
+        long reverse = 0;
+        while (x > 0) {
+            temp = x % 10;
+            reverse = ((reverse * 10) + temp);
+            x = x / 10;
         }
         return (reverse == var);
     }

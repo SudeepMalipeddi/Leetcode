@@ -1,20 +1,21 @@
 
-public class isSymmetric101 {
-    public boolean isSymmetric(TreeNode root){
-        if(root == null){
+public class IsSymmetric101 {
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
             return true;
         }
-        return dfs(root.left,root.right);
+        return dfs(root.left, root.right);
     }
-    public boolean dfs(TreeNode l, TreeNode r){
-        if(l == null && r ==null){
+
+    public boolean dfs(TreeNode l, TreeNode r) {
+        if (l == null && r == null) {
             return true;
         }
-        if(l == null || r == null){
+        if (l == null || r == null) {
             return false;
         }
-        if(l.val == r.val){
-            return dfs(l.left,r.right) && dfs(l.right,r.left);
+        if (l.val == r.val) {
+            return dfs(l.left, r.right) && dfs(l.right, r.left);
         }
         return false;
     }
