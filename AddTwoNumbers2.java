@@ -55,7 +55,7 @@ public class AddTwoNumbers2 {
         ListNode tail = dummyhead;
         // Initializing a carry variable
         int carry = 0;
-        // Iterate until both lists are exhausted
+        // While loop to iterate through the linked list
         while (l1 != null || l2 != null) {
             // Initializing a sum variable
             int sum = carry;
@@ -82,7 +82,7 @@ public class AddTwoNumbers2 {
         if (carry > 0) {
             tail.next = new ListNode(carry);
         }
-        // Return the list after the dummy head
+        // Return the next node of the dummy head node
         return dummyhead.next;
     }
 }
