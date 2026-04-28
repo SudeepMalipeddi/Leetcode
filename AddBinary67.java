@@ -1,3 +1,40 @@
+/*
+ * Problem: LeetCode 67. Add Binary
+ *
+ * Problem Statement:
+ * Given two binary strings a and b, return their sum as a binary string.
+ *
+ * Intuition:
+ * Binary addition works from least significant bit to most significant bit, carrying
+ * over when the sum is 2 or 3. Walking from the end of each string simulates that.
+ *
+ * Approach:
+ * 1. Start from the last character of both strings and keep a carry.
+ * 2. Add the current bits plus carry, append sum % 2, update carry = sum / 2.
+ * 3. Continue until both strings are exhausted, then append any leftover carry.
+ * 4. Reverse the built string because we appended from least to most significant bit.
+ *
+ * Time Complexity: O(max(N, M)) because each string is scanned once.
+ * Space Complexity: O(max(N, M)) for the StringBuilder output.
+ *
+ * Edge Cases handled:
+ * - Different length strings.
+ * - Leftover carry at the end (e.g., "1" + "1" => "10").
+ * - Strings that represent zero.
+ *
+ * Dry Run:
+ * a = "101", b = "11"
+ * Step 1: 1 + 1 = 2 -> append 0, carry 1
+ * Step 2: 0 + 1 + carry 1 = 2 -> append 0, carry 1
+ * Step 3: 1 + carry 1 = 2 -> append 0, carry 1
+ * End: append carry 1 -> "0001", reverse -> "1000"
+ *
+ * Correctness Check:
+ * The implementation follows standard binary addition and is correct.
+ *
+ * LeetCode Match:
+ * LeetCode 67 - "Add Binary".
+ */
 /**
  * LeetCode 67. Add Binary
  * Given two binary strings a and b, return their sum as a binary string.
@@ -18,6 +55,7 @@ public class AddBinary67 {
 
         // Continue while there are digits left in either string
         while (i >= 0 || j >= 0) {
+            // Sum of current bits plus carry
             int sum = carry;
             // Add digit from string b if available
             if (j >= 0)
