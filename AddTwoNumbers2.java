@@ -1,7 +1,21 @@
-/**
- * LeetCode 2. Add Two Numbers
- * Add two numbers represented by linked lists (digits stored in reverse order)
- * and return the sum as a linked list.
+/*
+ * Problem: LeetCode 2 - Add Two Numbers
+ * Problem Statement: Two non-empty linked lists represent non-negative integers
+ *   in reverse digit order. Add the two numbers and return the sum as a linked list.
+ * Intuition: Traverse both lists digit by digit, maintaining a carry as in
+ *   elementary addition.
+ * Approach:
+ *   1) Use a dummy head to build the result list.
+ *   2) While either list has nodes, add current digits plus carry.
+ *   3) Append sum % 10 as the new digit and update carry = sum / 10.
+ *   4) If a carry remains after traversal, append one more node.
+ * Time Complexity: O(max(N, M)) for lengths of the lists.
+ * Space Complexity: O(max(N, M)) for the output list.
+ * Edge Cases: Different lengths, carry at the end, zeros in the input.
+ * Dry Run: l1=2->4->3, l2=5->6->4 => 2+5=7, 4+6=10 carry1,
+ *   3+4+1=8 => result 7->0->8 (807).
+ * Correctness Check: Each output node encodes the correct digit for the running
+ *   sum, and carry propagation ensures the full integer sum is represented.
  */
 public class AddTwoNumbers2 {
     /**

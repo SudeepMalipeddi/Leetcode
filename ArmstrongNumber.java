@@ -1,8 +1,19 @@
-/**
- * Armstrong Number Check
- * Determines whether a given number is an Armstrong number or not.
- * An Armstrong number is a number that is equal to the sum of cubes (or power
- * of its length) of its digits.
+/*
+ * Problem: Armstrong Number (Narcissistic Number) Check
+ * Problem Statement: Determine whether a given integer equals the sum of its
+ *   digits each raised to the power of the number of digits.
+ * Intuition: Split the number into digits, compute digit^count, and compare to
+ *   the original value.
+ * Approach:
+ *   1) Count the number of digits.
+ *   2) Re-traverse the number, summing digit^count.
+ *   3) Return true if the sum equals the original number.
+ * Time Complexity: O(d) where d is the number of digits.
+ * Space Complexity: O(1).
+ * Edge Cases: Single-digit numbers (always Armstrong), large values.
+ * Dry Run: n=153 -> digits=3, sum=1^3+5^3+3^3=1+125+27=153 => true.
+ * Correctness Check: The algorithm matches the mathematical definition exactly.
+ * Assumption: n is non-negative (standard definition for Armstrong numbers).
  */
 class armstrong_number {
     /**
