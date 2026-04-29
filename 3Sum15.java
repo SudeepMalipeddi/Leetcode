@@ -66,20 +66,22 @@ class sum15 {
 
                 // If sum <= 0, we need a larger value, so we move the left pointer to the right
                 // Skipping duplicates for the second element
-                if (sum <= 0)
-                    while (nums[j] == nums[++j] && j < k)
-                        ;
+                if (sum <= 0) {
+                    while (j + 1 < k && nums[j] == nums[j + 1]) j++;
+                    j++;
+                }
 
                 // If sum >= 0, we need a smaller value, so we move the right pointer to the
                 // left
                 // Skipping duplicates for the third element
-                if (sum >= 0)
-                    while (nums[k--] == nums[k] && j < k)
-                        ;
+                if (sum >= 0) {
+                    while (k - 1 > j && nums[k] == nums[k - 1]) k--;
+                    k--;
+                }
             }
             // Skip duplicates for the first element
-            while (nums[i] == nums[++i] && i < nums.length - 2)
-                ;
+            while (i + 1 < nums.length - 2 && nums[i] == nums[i + 1]) i++;
+            i++;
         }
         return result;
     }
