@@ -1,6 +1,21 @@
-/**
- * LeetCode 67. Add Binary
- * Given two binary strings a and b, return their sum as a binary string.
+/*
+ * Problem: LeetCode 67 - Add Binary
+ * Problem Statement: Given two binary strings a and b, return their sum as a
+ *   binary string.
+ * Intuition: Binary addition is performed from right to left while carrying
+ *   overflow, exactly like manual addition in base 2.
+ * Approach:
+ *   1) Start from the least significant bits of both strings.
+ *   2) Add digits plus carry, append sum % 2, update carry = sum / 2.
+ *   3) Continue until both strings are exhausted, then append any leftover carry.
+ *   4) Reverse the built string because we append from LSB to MSB.
+ * Time Complexity: O(max(N, M)) for lengths of a and b.
+ * Space Complexity: O(max(N, M)) for the StringBuilder output.
+ * Edge Cases: Different lengths, carry at the final position, inputs like "0".
+ * Dry Run: a="101", b="11" -> process from right: (1+1)=0 carry1,
+ *   then (0+1+carry)=0 carry1, then (1+carry)=0 carry1, append carry -> "1000".
+ * Correctness Check: Each position uses the correct base-2 sum and carry, so the
+ *   resulting reversed string exactly matches binary addition.
  */
 public class AddBinary67 {
     /**
@@ -18,7 +33,7 @@ public class AddBinary67 {
 
         // Continue while there are digits left in either string
         while (i >= 0 || j >= 0) {
-            int sum = carry;
+            int sum = carry; // carry from previous bit
             // Add digit from string b if available
             if (j >= 0)
                 sum += b.charAt(j--) - '0';

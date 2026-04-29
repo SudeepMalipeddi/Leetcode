@@ -1,3 +1,26 @@
+/*
+ * Problem: LeetCode 15 - 3Sum
+ * Problem Statement: Given an integer array nums, return all unique triplets
+ *   [nums[i], nums[j], nums[k]] such that i != j != k and the sum is zero.
+ * Intuition: Sorting enables a two-pointer scan to find pairs that complement a
+ *   fixed first number while skipping duplicates.
+ * Approach:
+ *   1) Sort the array to make duplicate handling and pointer moves deterministic.
+ *   2) Fix an index i, then use two pointers j (i+1) and k (end) to search for
+ *      pairs that sum to -nums[i].
+ *   3) Move pointers based on the sum, skipping duplicate values to avoid
+ *      repeated triplets.
+ *   4) Early stop when nums[i] > 0 because all later numbers are non-negative.
+ * Time Complexity: O(n^2) for the two-pointer scan per i, plus O(n log n) sort.
+ * Space Complexity: O(1) extra (ignoring output), or O(n) depending on sort.
+ * Edge Cases: nums length < 3, all positive/negative values, many duplicates.
+ * Dry Run: nums=[-1,0,1,2,-1,-4] -> sort [-4,-1,-1,0,1,2];
+ *   i=-4 => move j until sums approach 0 (no triplet),
+ *   i=-1 => j=2,k=5 gives sum=0 => [-1,-1,2], then j=3,k=4 sum=0 => [-1,0,1].
+ * Correctness Check: The sorted order guarantees that moving j right increases
+ *   the sum and moving k left decreases it, so all valid pairs are explored
+ *   exactly once for each i while duplicate skips keep results unique.
+ */
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +35,7 @@ class sum15 {
      * Space Complexity: O(1) or O(n) depending on the sorting algorithm.
      */
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> result = new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>(); // collect unique triplets
         // We will be using two pointers like the solution to the question of Valid
         // Palindrome question
         if (nums.length < 3) {
