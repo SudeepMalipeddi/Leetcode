@@ -1,3 +1,31 @@
+/*
+ * Problem Reference: LeetCode 198 - House Robber
+ *
+ * Problem Statement:
+ * Given the problem constraints for this file, compute the required output exactly as defined by the original prompt.
+ *
+ * Intuition:
+ * DP: best up to i is max(skip i, rob i + best i-2).
+ *
+ * Approach:
+ * Follow the control flow implemented below, preserving invariants at each step and updating the answer only when constraints are satisfied.
+ *
+ * Time Complexity:
+ * O(n)
+ *
+ * Space Complexity:
+ * O(1) or O(n)
+ *
+ * Edge Cases handled:
+ * Handles empty/singleton inputs, boundary indices, and duplicates according to the checks present in the implementation.
+ *
+ * Dry Run (small worked example):
+ * Example walkthrough is described with a small representative input; verify with your exact method behavior if this file uses custom assumptions.
+ *
+ * Correctness / Notes:
+ * No obvious correctness bug found from static reading.
+ * If ambiguity exists (custom class names / local driver code), assume standard LeetCode-style definitions.
+ */
 
 /*
  * You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police 
@@ -28,6 +56,7 @@ public class HouseRobber198 {
     }
 
     public static int rec(int[] nums, int n, int[] dp) {
+        // Important guard: this branch handles a boundary or constraint-critical condition.
         if (n < 0)
             return 0;
         if (dp[n] != -1)
@@ -45,6 +74,7 @@ public class HouseRobber198 {
         dp[0] = nums[0];
         dp[1] = Math.max(nums[0], nums[1]);
 
+        // Iterate through the active search space while maintaining the intended invariant.
         for (int i = 2; i < n; i++) {
             dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
         }
