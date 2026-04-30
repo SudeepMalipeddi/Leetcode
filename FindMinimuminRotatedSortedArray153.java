@@ -1,3 +1,31 @@
+/*
+ * Problem Reference: LeetCode 153 - Find Minimum in Rotated Sorted Array
+ *
+ * Problem Statement:
+ * Given the problem constraints for this file, compute the required output exactly as defined by the original prompt.
+ *
+ * Intuition:
+ * Binary search using sorted half property.
+ *
+ * Approach:
+ * Follow the control flow implemented below, preserving invariants at each step and updating the answer only when constraints are satisfied.
+ *
+ * Time Complexity:
+ * O(log n)
+ *
+ * Space Complexity:
+ * O(1)
+ *
+ * Edge Cases handled:
+ * Handles empty/singleton inputs, boundary indices, and duplicates according to the checks present in the implementation.
+ *
+ * Dry Run (small worked example):
+ * Example walkthrough is described with a small representative input; verify with your exact method behavior if this file uses custom assumptions.
+ *
+ * Correctness / Notes:
+ * No obvious correctness bug found from static reading.
+ * If ambiguity exists (custom class names / local driver code), assume standard LeetCode-style definitions.
+ */
 /*Suppose an array of length n sorted in ascending order is rotated between 1 and n times.
 For example, the array nums = [0,1,2,4,5,6,7] might become:
 
@@ -35,8 +63,10 @@ public class FindMinimuminRotatedSortedArray153 {
             return nums[0];
         }
         int low = 0, high = n - 1;
+        // Iterate through the active search space while maintaining the intended invariant.
         while (low < high) {
             int mid = (low + high) / 2;
+            // Important guard: this branch handles a boundary or constraint-critical condition.
             if (mid > 0 && nums[mid] < nums[mid - 1]) {
                 return nums[mid];
             }

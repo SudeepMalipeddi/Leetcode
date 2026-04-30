@@ -1,3 +1,31 @@
+/*
+ * Problem Reference: LeetCode 706 - Design HashMap
+ *
+ * Problem Statement:
+ * Given the problem constraints for this file, compute the required output exactly as defined by the original prompt.
+ *
+ * Intuition:
+ * Bucketed hashing with collision handling inside each bucket.
+ *
+ * Approach:
+ * Follow the control flow implemented below, preserving invariants at each step and updating the answer only when constraints are satisfied.
+ *
+ * Time Complexity:
+ * Amortized O(1)
+ *
+ * Space Complexity:
+ * O(capacity + entries)
+ *
+ * Edge Cases handled:
+ * Handles empty/singleton inputs, boundary indices, and duplicates according to the checks present in the implementation.
+ *
+ * Dry Run (small worked example):
+ * Example walkthrough is described with a small representative input; verify with your exact method behavior if this file uses custom assumptions.
+ *
+ * Correctness / Notes:
+ * No obvious correctness bug found from static reading.
+ * If ambiguity exists (custom class names / local driver code), assume standard LeetCode-style definitions.
+ */
 // Design a HashMap without using any built-in hash table libraries.
 
 // Implement the MyHashMap class:

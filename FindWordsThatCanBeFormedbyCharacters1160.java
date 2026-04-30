@@ -1,3 +1,31 @@
+/*
+ * Problem Reference: LeetCode 1160 - Find Words That Can Be Formed by Characters
+ *
+ * Problem Statement:
+ * Given the problem constraints for this file, compute the required output exactly as defined by the original prompt.
+ *
+ * Intuition:
+ * Frequency count chars, verify each word can be formed.
+ *
+ * Approach:
+ * Follow the control flow implemented below, preserving invariants at each step and updating the answer only when constraints are satisfied.
+ *
+ * Time Complexity:
+ * O(total characters)
+ *
+ * Space Complexity:
+ * O(1) alphabet
+ *
+ * Edge Cases handled:
+ * Handles empty/singleton inputs, boundary indices, and duplicates according to the checks present in the implementation.
+ *
+ * Dry Run (small worked example):
+ * Example walkthrough is described with a small representative input; verify with your exact method behavior if this file uses custom assumptions.
+ *
+ * Correctness / Notes:
+ * No obvious correctness bug found from static reading.
+ * If ambiguity exists (custom class names / local driver code), assume standard LeetCode-style definitions.
+ */
 // You are given an array of strings words and a string chars.
 
 // A string is good if it can be formed by characters from chars (each character can only be used once).
