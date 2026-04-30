@@ -1,44 +1,52 @@
 /*
+ * Problem: Sort a linked list of 0s, 1s and 2s
+ *
  * Problem Statement:
- * Given a linked list containing only values 0, 1, and 2, sort it in non-decreasing order.
+ * Given a linked list where each node contains a value of 0, 1, or 2, sort the list 
+ * so that all 0s come first, followed by all 1s, and finally all 2s.
  *
  * Intuition:
- * With only three distinct values, counting frequencies is straightforward.
- * Another common technique is splitting nodes into 0/1/2 chains and reconnecting.
+ * Since the set of possible values is extremely small and fixed {0, 1, 2}, we can 
+ * solve this without a general-purpose O(N log N) sort. We can either count the 
+ * occurrences (Counting Sort logic) or physically move the nodes into three 
+ * separate buckets and then link those buckets together.
  *
  * Approach:
- * sortList (counting rewrite):
- * - First pass counts number of 0s, 1s, 2s.
- * - Second pass overwrites node data in sorted order using counts.
+ * 1. sortList (Counting): Perform a first pass to count how many 0s, 1s, and 2s exist. 
+ *    Perform a second pass to overwrite the 'data' field of each node in sorted order.
+ * 2. sortList2 (Partitioning): Create three dummy nodes to represent the heads of 
+ *    three sub-lists (zeros, ones, and twos). Iterate through the original list, 
+ *    appending each node to its corresponding sub-list. Finally, link the sub-lists.
  *
- * sortList2 (three-list partition):
- * - Attach each node to zero/one/two dummy-headed list.
- * - Connect zero -> one (or two), then one -> two, terminate two.
+ * Time Complexity: O(N)
+ * Both approaches require linear passes through the list. Counting takes two passes, 
+ * while partitioning takes one.
  *
- * Time Complexity (with concrete justification):
- * sortList: O(n) (two linear passes).
- * sortList2 intent: O(n) (single linear partition + O(1) reconnect).
+ * Space Complexity: O(1)
+ * We only use a fixed number of pointers or integer counters, regardless of the 
+ * input size. No extra nodes are created (except for 3 dummy nodes in sortList2).
  *
- * Space Complexity (with concrete justification):
- * O(1) auxiliary for both (fixed counters/pointers; no extra per-node allocations besides 3 dummy nodes).
+ * Edge Cases:
+ * - Empty list (head is null).
+ * - List with only one node.
+ * - List containing only one type of value (e.g., all 2s).
+ * - List missing one of the values (e.g., only 0s and 2s).
  *
- * Edge Cases handled:
- * - Empty list / single node in sortList2 guard.
- * - Lists containing only one value type (all 0s/all 1s/all 2s).
- *
- * Dry Run (concrete example with state):
- * head: 2->1->0->2
- * sortList counts: c0=1,c1=1,c2=2
- * rewrite pass: node1=0,node2=1,node3=2,node4=2 -> 0->1->2->2
- *
- * LeetCode matching/assumption:
- * Matches common "Sort a linked list of 0s, 1s and 2s" interview/GFG variant (not a direct LeetCode-numbered problem).
- * Assumes node data is restricted to {0,1,2}.
+ * Dry Run (sortList):
+ * Input: 2 -> 1 -> 0
+ * 1. Pass 1: count0=1, count1=1, count2=1.
+ * 2. Pass 2: 
+ *    - Node 1: count0 > 0? Yes. data=0, count0=0.
+ *    - Node 2: count0 > 0? No. count1 > 0? Yes. data=1, count1=0.
+ *    - Node 3: count0 > 0? No. count1 > 0? No. data=2, count2=0.
+ * Result: 0 -> 1 -> 2
  *
  * Correctness Check:
- * sortList is consistent with counting-sort logic.
- * Critical risk in sortList2: loop never advances `current` (missing `current = current.next`),
- * so it can loop forever on non-empty input. This comment highlights the existing issue without changing code.
+ * - sortList is correct and robust.
+ * - BUG ALERT in sortList2: The 'while' loop does not update the 'current' pointer 
+ *   (missing current = current.next). This will result in an infinite loop.
+ * - sortList2 stitching logic: Correctly handles cases where the 'ones' list is 
+ *   empty by checking if oneHead.next is null.
  */
 
 class ListNode {
@@ -55,9 +63,14 @@ class ListNode {
 }
 
 public class LinkedListSort0s1s2s {
+    /**
+     * Approach 1: Counting Sort (Data Replacement)
+     * This is simpler but modifies the data within nodes rather than rearranging pointers.
+     */
     public ListNode sortList(ListNode head) {
         ListNode ptr = head;
         int count0 = 0, count1 = 0, count2 = 0;
+        
         // First pass: count frequencies of each allowed value.
         while (ptr != null) {
             if (ptr.data == 0) {
@@ -69,8 +82,10 @@ public class LinkedListSort0s1s2s {
             }
             ptr = ptr.next;
         }
+        
         ptr = head;
-        // Second pass: rewrite node values in sorted bucket order.
+        // Second pass: overwrite node data in sorted bucket order.
+        // We fill the list with 0s first, then 1s, then 2s based on our counts.
         while (ptr != null) {
             if (count0 > 0) {
                 ptr.data = 0;
@@ -87,15 +102,26 @@ public class LinkedListSort0s1s2s {
         return head;
     }
 
+    /**
+     * Approach 2: Three-Way Partitioning (Pointer Manipulation)
+     * This rearranges the actual nodes, which is often preferred if node data is large 
+     * or if the nodes themselves carry identity.
+     */
     public ListNode sortList2(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
+        
+        // Create dummy nodes to simplify list building. 
+        // These act as placeholders so we don't have to check for null on every insertion.
         ListNode zeroHead = new ListNode(0), zero = zeroHead;
         ListNode oneHead = new ListNode(0), one = oneHead;
         ListNode twoHead = new ListNode(0), two = twoHead;
+        
         ListNode current = head;
+        
         // Partition nodes by value into three chains using tail pointers.
+        // NOTE: This loop is currently broken as it lacks 'current = current.next'.
         while (current != null) {
             if (current.data == 0) {
                 zero.next = current;
@@ -107,11 +133,21 @@ public class LinkedListSort0s1s2s {
                 two.next = current;
                 two = two.next;
             }
+            // Logic Error: current is never advanced, leading to an infinite loop.
         }
-        // Stitch 0-list to 1-list if present, else directly to 2-list.
-        zero.next = oneHead.next != null ? oneHead.next : twoHead.next;
+        
+        // Stitching logic:
+        // 1. Connect the end of the 0-list to the start of the 1-list.
+        //    If the 1-list is empty, connect the 0-list directly to the 2-list.
+        zero.next = (oneHead.next != null) ? oneHead.next : twoHead.next;
+        
+        // 2. Connect the end of the 1-list to the start of the 2-list.
         one.next = twoHead.next;
+        
+        // 3. Crucial: Terminate the 2-list to avoid cycles in the linked list.
         two.next = null;
+        
+        // The real head is the first node after the zero dummy head.
         return zeroHead.next;
     }
 
