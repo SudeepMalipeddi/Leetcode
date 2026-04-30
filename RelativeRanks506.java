@@ -1,14 +1,39 @@
+/*
+Problem Statement:
+- Assign medal strings to top 3 scores and rank numbers to others preserving original order.
+
+Intuition:
+- Sorted score positions determine final rank labels.
+
+Approach:
+- Sort cloned scores, binary-search each original score position, map top 3 to medal names.
+
+Time Complexity:
+- O(n log n).
+
+Space Complexity:
+- O(n) for clone and output.
+
+Edge Cases:
+- Exactly three players still get all medals.
+
+Dry Run:
+- Scores [10,3,8] -> ranks [Gold,3,Bronze].
+*/
 import java.util.Arrays;
 
 public class RelativeRanks506 {
-    // Optimized solution
+    
     public String[] findRelativeRanks(int[] score) {
         int n = score.length;
         String[] res = new String[n];
         int[] scoreclone = score.clone();
         Arrays.sort(scoreclone);
+        
         for (int i = 0; i < n; i++) {
+            // Position in sorted scores determines rank label for this athlete.
             int pos = Arrays.binarySearch(scoreclone, score[i]);
+            
             if (pos == n - 1) {
                 res[i] = "Gold Medal";
             } else if (pos == n - 2) {
@@ -27,12 +52,15 @@ public class RelativeRanks506 {
         int n = scores.length;
         String[] res = new String[n];
         int[] index = new int[n];
+        
         for (int i = 0; i < n; i++) {
             index[i] = i;
         }
-        // sort index based on scores
+        
         for (int i = 0; i < n; i++) {
+            
             for (int j = i + 1; j < n; j++) {
+                
                 if (scores[index[i]] < scores[index[j]]) {
                     int temp = index[i];
                     index[i] = index[j];
@@ -40,7 +68,9 @@ public class RelativeRanks506 {
                 }
             }
         }
+        
         for (int i = 0; i < n; i++) {
+            
             if (i == 0) {
                 res[index[i]] = "Gold Medal";
             } else if (i == 1) {
@@ -58,6 +88,7 @@ public class RelativeRanks506 {
         RelativeRanks506 rr = new RelativeRanks506();
         int[] score = { 5, 4, 3, 2, 1 };
         String[] res = rr.findRelativeRanks(score);
+        
         for (String s : res) {
             System.out.println(s);
         }

@@ -1,14 +1,32 @@
-/*Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The order of the elements may be changed. Then return the number of elements in nums which are not equal to val.
+/*
+Problem Statement:
+- Remove all occurrences of val from array in-place and return count of kept elements.
 
-Consider the number of elements in nums which are not equal to val be k, to get accepted, you need to do the following things:
+Intuition:
+- Overwrite unwanted elements by compacting survivors to front.
 
-Change the array nums such that the first k elements of nums contain the elements which are not equal to val. The remaining elements of nums are not important as well as the size of nums.
-Return k. */
+Approach:
+- Scan array and copy nums[i] to nums[index] only when nums[i] != val.
 
+Time Complexity:
+- O(n).
+
+Space Complexity:
+- O(1).
+
+Edge Cases:
+- If val absent, length stays original.
+
+Dry Run:
+- [3,2,2,3], val=3 -> front becomes [2,2], return 2.
+*/
 public class RemoveElement {
     public int removeelement(int[] nums, int val) {
         int index = 0;
+        
         for (int i = 0; i < nums.length; i++) {
+            
+            // Compact non-target values to the front segment.
             if (nums[i] != val) {
                 nums[index] = nums[i];
                 index++;

@@ -1,3 +1,25 @@
+/*
+Problem Statement:
+- Return binary tree preorder traversal.
+
+Intuition:
+- Preorder visits root before left and right subtrees.
+
+Approach:
+- Provide both recursive traversal and iterative stack-based traversal.
+
+Time Complexity:
+- O(n).
+
+Space Complexity:
+- O(h) recursive or O(n) iterative stack worst case.
+
+Edge Cases:
+- Null root returns empty list.
+
+Dry Run:
+- Node 1 with children 2,3 yields [1,2,3].
+*/
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -23,37 +45,42 @@ class TreeNode {
 
 public class PreOrder {
     public void traversal(TreeNode root, List<Integer> res) {
-        // checking if root node is null
+        
         if (root == null)
             return;
-        // adding the value of the root node to the result list
+        
         res.add(root.val);
-        // traversing the left subtree
+        
         traversal(root.left, res);
-        // traversing the right subtree
+        
         traversal(root.right, res);
     }
 
     public List<Integer> preorderTraversal(TreeNode root) {
-        // creating a new list to store the result
+        
         List<Integer> res = new ArrayList<>();
-        // calling the traversal function
+        
         traversal(root, res);
-        // returning the result
+        
         return res;
     }
 
     public List<Integer> preOrderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
+        
         if (root == null)
             return res;
         Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
+        
         while (!stack.isEmpty()) {
             TreeNode curr = stack.pop();
             res.add(curr.val);
+            
+            // Push right first so left is processed next (LIFO stack).
             if (curr.right != null)
                 stack.push(curr.right);
+            
             if (curr.left != null)
                 stack.push(curr.left);
         }
