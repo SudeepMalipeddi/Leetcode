@@ -2,28 +2,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/*A permutation of integers 1,2,\ldots,n is called beautiful if there are no adjacent elements whose difference is 1.
-Given n, construct a beautiful permutation if such a permutation exists.
-Input
-The only input line contains an integer n.
-Output
-Print a beautiful permutation of integers 1,2,\ldots,n. If there are several solutions, you may print any of them. If there are no solutions, print "NO SOLUTION".
-Constraints
-
-1 \le n \le 10^6
-
-Example 1
-Input:
-5
-
-Output:
-4 2 5 3 1
-Example 2
-Input:
-3
-
-Output:
-NO SOLUTION*/
+/*
+ * Problem: CSES - Permutations
+ *
+ * Problem Statement:
+ * Construct a "beautiful" permutation of 1..n where no two adjacent elements
+ * differ by 1. Print it or "NO SOLUTION" if impossible.
+ *
+ * Intuition:
+ * To avoid adjacent differences of 1, we can separate evens and odds. Even
+ * numbers differ by 2, odds differ by 2, so printing all evens then all odds
+ * (or vice versa) guarantees no pair differs by 1, EXCEPT at the transition
+ * point. For n <= 3, it's impossible (only for n=2,3; n=1 works). For n=4,
+ * 2 4 1 3 works.
+ *
+ * Approach:
+ * 1. If n == 1: print 1.
+ * 2. If n == 2 or n == 3: print "NO SOLUTION".
+ * 3. If n is even: print evens (2,4,...,n) then odds (1,3,...,n-1).
+ * 4. If n is odd: print evens descending (n-1,n-3,...,2) then odds descending
+ *    (n,n-2,...,1) to avoid the transition being adjacent.
+ *
+ * Time Complexity: O(n) — printing each number once.
+ * Space Complexity: O(1).
+ *
+ * Edge Cases:
+ * - n=1: output 1.
+ * - n=2 or 3: impossible.
+ * - n=4: 2 4 1 3.
+ *
+ * Dry Run:
+ * n=5 (odd): evens desc: 4 2. odds desc: 5 3 1. Output: 4 2 5 3 1.
+ * Check: |4-2|=2, |2-5|=3, |5-3|=2, |3-1|=2. All >= 2. ✓
+ *
+ * Correctness Check:
+ * The even-odd separation guarantees within-group differences of 2. The
+ * transition from largest even to largest odd ensures difference >= 2 for n>3.
+ */
 
 int main()
 {

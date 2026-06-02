@@ -1,35 +1,73 @@
 /*
- * Problem (from file name): Reverse Linked List (LeetCode 206).
+ * Problem: LeetCode 206 - Reverse Linked List
+ *
  * Problem Statement:
- * Reverse a singly linked list and return the new head.
+ * Given the head of a singly linked list, reverse the list and return the new
+ * head (the original tail). The reversal must be done in-place.
  *
  * Intuition:
- * Every node should point to its previous node instead of its next node.
- * While scanning left-to-right, we can rewire one pointer at a time and carry
- * the already-reversed prefix in `prev`.
+ * Every node's `next` pointer should point to its predecessor instead of its
+ * successor. By maintaining a `prev` pointer representing the already-reversed
+ * prefix, we iterate through the list, reversing one link at a time. After
+ * processing all nodes, `prev` points to the original tail, which becomes the
+ * new head.
  *
  * Approach:
- * 1. Keep three pointers: `prev` (reversed part), `curr` (current node), `nextTemp` (saved next).
- * 2. Reverse `curr.next` to point to `prev`.
- * 3. Advance `prev` and `curr`.
- * 4. When `curr` becomes null, `prev` is the new head.
+ *   1. Initialize `prev = null` (the reversed prefix starts empty).
+ *   2. Initialize `curr = head` (the node currently being processed).
+ *   3. While `curr != null`:
+ *      - Save the next node: `ListNode nextTemp = curr.next`.
+ *      - Reverse the link: `curr.next = prev`.
+ *      - Advance `prev` to current node: `prev = curr`.
+ *      - Advance `curr` to the saved next node: `curr = nextTemp`.
+ *   4. Return `prev` (the new head of the reversed list).
  *
- * Time Complexity: O(n), because each node is visited once.
- * Space Complexity: O(1), only constant extra pointers are used.
+ * Time Complexity: O(n) — each node is visited exactly once.
+ * Space Complexity: O(1) — only three pointers (`prev`, `curr`, `nextTemp`)
+ *                    are used regardless of list size.
  *
- * Edge Cases handled:
- * - Empty list (`head == null`) -> returns null.
- * - Single node list -> unchanged.
+ * Edge Cases:
+ * - Empty list (`head == null`): while loop skips, returns null.
+ * - Single node list: one iteration reverses the link then exits, returns the
+ *   same node as new head.
  *
  * Dry Run:
- * head: 1 -> 2 -> 3 -> null
- * Iteration 1: reverse 1 -> null, prev=1, curr=2
- * Iteration 2: reverse 2 -> 1,    prev=2, curr=3
- * Iteration 3: reverse 3 -> 2,    prev=3, curr=null
- * Return prev => 3 -> 2 -> 1 -> null
+ * Input: head = 1 -> 2 -> 3 -> 4 -> null
+ *
+ * Initial: prev=null, curr=1
+ *
+ * Iteration 1:
+ *   nextTemp = 2
+ *   curr.next = null       (1 -> null)
+ *   prev = 1, curr = 2
+ *   State: null <- 1    2 -> 3 -> 4 -> null
+ *
+ * Iteration 2:
+ *   nextTemp = 3
+ *   curr.next = 1         (2 -> 1)
+ *   prev = 2, curr = 3
+ *   State: null <- 1 <- 2    3 -> 4 -> null
+ *
+ * Iteration 3:
+ *   nextTemp = 4
+ *   curr.next = 2         (3 -> 2)
+ *   prev = 3, curr = 4
+ *   State: null <- 1 <- 2 <- 3    4 -> null
+ *
+ * Iteration 4:
+ *   nextTemp = null
+ *   curr.next = 3         (4 -> 3)
+ *   prev = 4, curr = null
+ *   State: null <- 1 <- 2 <- 3 <- 4
+ *
+ * curr == null, exit loop. Return prev = 4.
+ * Output: 4 -> 3 -> 2 -> 1 -> null
  *
  * Correctness Check:
- * This implementation is correct and matches the standard iterative solution.
+ * The invariant is that `prev` always points to the head of the reversed prefix
+ * (nodes already processed in reverse order), and `curr` points to the next
+ * unprocessed node. Each iteration prepends `curr` to the front of the reversed
+ * prefix. When all nodes are processed, `prev` is the fully reversed list.
  */
 public class ReverseLinkedList {
     public ListNode reverseList(ListNode head) {
