@@ -151,14 +151,35 @@ int main()
         }
     }
 
-    // for (int i = 0; i < monsters.size(); i++)
-    // {
-    //     cout << monsters[i].first << " " << monsters[i].second << " \n";
-    // }
+    if (escape_tile.first == -1)
+    {
+        cout << "NO" << endl;
+    }
+    else
+    {
+        cout << "YES" << endl;
 
-    // cout << start.first << " " << start.second << " \n";
+        // trace back from escape_tile to start using parent array
+        string path = "";
+        int cx = escape_tile.first;
+        int cy = escape_tile.second;
 
-    // find the time it takes to reach exit for each monster
+        while (cx != start.first || cy != start.second)
+        {
+            int d = parent[cx][cy];
+            path += dir[d];
+
+            // reverse the direction to go back
+            // if d=0 (U, dx=-1), reverse is +1 → cx+1
+            // if d=1 (D, dx=+1), reverse is -1 → cx-1
+            cx -= dx[d];
+            cy -= dy[d];
+        }
+
+        reverse(path.begin(), path.end());
+        cout << path.size() << endl;
+        cout << path << endl;
+    }
 
     return 0;
 }
